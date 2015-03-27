@@ -13,7 +13,7 @@ class smallVector {
   public:
 	// typedefs
 	typedef T *			  		 iterator;
-    typedef unsigned int          size_type;
+    	typedef unsigned int          size_type;
 	// public member functions
 	// Construct/Copy/Destruct
 	smallVector();
