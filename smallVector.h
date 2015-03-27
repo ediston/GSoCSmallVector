@@ -66,13 +66,13 @@ class smallVector {
 	void swap (smallVector& x);
 
 	// Private members
-	T* 				_buffer;
+T* 				_buffer;
 	size_type		_maxSize;
 	size_type		_capacity;
 	size_type		_size;
 	iterator		first;
 	iterator		last;
-	const size_type MAX_SIZE = UINT_MAX;
+	const size_type 	MAX_SIZE = UINT_MAX;
 };
 #endif
 
@@ -102,13 +102,13 @@ smallVector<T>::smallVector( typename smallVector<T>::size_type max_capacity){
 template <typename T>
 smallVector<T>::smallVector(typename smallVector<T>::iterator _first,
                             typename smallVector<T>::iterator _last){
-    _capacity =0, _size=0, _buffer = nullptr , _maxSize = smallVector<T>::MAX_SIZE;
-    first = nullptr;
-    last = nullptr;
-    while(_first!=_last){
-        push_back(*_first);
-        _first++;
-    }
+	_capacity =0, _size=0, _buffer = nullptr , _maxSize = smallVector<T>::MAX_SIZE;
+	first = nullptr;
+	last = nullptr;
+	while(_first!=_last){
+		push_back(*_first);
+		_first++;
+	}
 }
 
 template <typename T>
