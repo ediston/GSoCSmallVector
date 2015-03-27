@@ -36,7 +36,9 @@ class smallVector {
 	// Element Access
 	T& operator[]( size_type i);
 	const T& operator[]( size_type i) const;
+	
 	T& at(size_type i) throw (std::out_of_range);
+	
 	const T& front() const;
 	const T& back() const;
 
@@ -47,15 +49,19 @@ class smallVector {
 	// Modifiers
 	void assign(size_type n, const T& val);
 	void assign(iterator _first, iterator _last);
+	
 	void push_back(const T& val)  ;
 	void pop_back();
+	
 	void insert(typename smallVector<T>::size_type i, const T& e) throw (std::out_of_range);
 	void insert(iterator pos, const T& e) throw (std::out_of_range);
 	void insert(iterator pos,  size_type n, const T& e) throw (std::out_of_range);
 	void insert(iterator pos,  iterator _first, iterator _last) throw (std::out_of_range);
+	
 	void erase(typename smallVector<T>::size_type i) throw (std::out_of_range);
 	void erase(iterator pos) throw (std::out_of_range);
 	void erase(iterator _first, iterator _last) throw (std::out_of_range);
+	
 	void clear();
 	void swap (smallVector& x);
 
@@ -96,7 +102,7 @@ smallVector<T>::smallVector( typename smallVector<T>::size_type max_capacity){
 template <typename T>
 smallVector<T>::smallVector(typename smallVector<T>::iterator _first,
                             typename smallVector<T>::iterator _last){
-	_capacity =0, _size=0, _buffer = nullptr , _maxSize = smallVector<T>::MAX_SIZE;
+    _capacity =0, _size=0, _buffer = nullptr , _maxSize = smallVector<T>::MAX_SIZE;
     first = nullptr;
     last = nullptr;
     while(_first!=_last){
@@ -120,7 +126,7 @@ smallVector<T>::smallVector(const smallVector& V){
     _capacity =V._capacity, _size=V._size, _buffer = new T[V._size];
     _maxSize = V._maxSize();
 	first = _buffer[0];
-	for (typename smallVector<T>::size_type i = 0; i < _size; ++i)
+    for (typename smallVector<T>::size_type i = 0; i < _size; ++i)
 		_buffer[i] = V[i];
 	last = _buffer[_size-1]+1;
 }
@@ -186,7 +192,6 @@ bool smallVector<T>::empty() const noexcept{
 	return _size == 0;
 }
 
-
 template <typename T>
 void smallVector<T>::shrink_to_fit(){
 	_capacity = _size;
@@ -243,7 +248,7 @@ template <typename T>
 void smallVector<T>::assign(typename smallVector<T>::size_type n, const T& val){
 	if(n>_maxSize) return;
 	_size = n;
-    T* newBuffer = new T[_size];
+    	T* newBuffer = new T[_size];
 	for (typename smallVector<T>::size_type  i = 0; i < _size; ++i)
 		newBuffer[i] = val;
 	delete[] _buffer;
@@ -256,25 +261,26 @@ void smallVector<T>::assign(typename smallVector<T>::size_type n, const T& val){
 template <typename T>
 void smallVector<T>::assign(typename smallVector<T>::iterator _first,
                                     typename smallVector<T>::iterator _last){
-    clear();
-    while(_first!=_last){
-        push_back(*_first);
-        _first++;
-    }
+    	clear();
+    	while(_first!=_last){
+		push_back(*_first);
+        	_first++;
+	}
 }
 
 template <typename T>
 void smallVector<T>::push_back(const T& e) {
-    try{
-        insert(_size, e);
-    }catch(std::exception& e){
-        std::cout << e.what() << '\n';
-    }
+	try{
+		insert(_size, e);
+	}catch(std::exception& e){
+		std::cout << e.what() << '\n';
+	}
 }
 
 template <typename T>
 void smallVector<T>::pop_back(){
-	if(_size == 0 ) return;
+	if(_size == 0 ) 
+		return;
 	resize(_size-1);
 }
 
@@ -282,23 +288,22 @@ template <typename T>
 void smallVector<T>::reserve(typename smallVector<T>::size_type n){
 	if (n <= _capacity || n>_maxSize)
 		return;
-    T* newBuffer;
-    try{
-        newBuffer = new T[n];
-        for(typename smallVector<T>::size_type i = 0; i < _size; i++)
-            newBuffer[i] = _buffer[i];
-        delete[] _buffer;
-        _buffer = newBuffer;
-        first = &_buffer[0];
-        if(_size>0)
-            last = &_buffer[_size-1] + 1;
-        else last = first;
-        _capacity = n;
+	T* newBuffer;
+	try{
+		newBuffer = new T[n];
+		for(typename smallVector<T>::size_type i = 0; i < _size; i++)
+		    newBuffer[i] = _buffer[i];
+		delete[] _buffer;
+		_buffer = newBuffer;
+		first = &_buffer[0];
+		if(_size>0)
+		    last = &_buffer[_size-1] + 1;
+		else last = first;
+		_capacity = n;
 	}catch (std::exception& e){
-        //std::cout << e.what() << '\n';
-    }
+		std::cout << e.what() << '\n';
+	}
 }
-
 
 template <typename T>
 void smallVector<T>::insert(typename smallVector<T>::size_type i, const T& e) throw (std::out_of_range) {
@@ -306,7 +311,8 @@ void smallVector<T>::insert(typename smallVector<T>::size_type i, const T& e) th
 		throw std::out_of_range("Illegal index in function insert()");
 	if (_size >= _capacity)
 		reserve(std::max(_size+1, std::min(2 * _size, _maxSize)));
-    if(_size+1 > _capacity) return;
+    	if(_size+1 > _capacity) 
+    		return;
 	for (typename smallVector<T>::size_type j = _size; j > i; --j)
 		_buffer[j] = _buffer[j - 1];
 	_buffer[i] = e;
@@ -330,7 +336,8 @@ void smallVector<T>::insert(typename smallVector<T>::iterator pos,
 	typename smallVector<T>::size_type i = typename smallVector<T>::size_type(pos - begin());
 	if(_size+n > _capacity)
 		reserve(std::max(_size+n, std::min(2 * _size, _maxSize)));
-    if(_size+n > _capacity) return;
+    	if(_size+n > _capacity) 
+    		return;
 	_size += n;
 	for(typename smallVector<T>::size_type j = _size-1; j>=i+n; j--)
 		_buffer[j] = _buffer[j - n];
@@ -350,7 +357,8 @@ void smallVector<T>::insert(typename smallVector<T>::iterator pos,
 	typename smallVector<T>::size_type i = typename smallVector<T>::size_type(pos - begin());
 	if(_size+n > _capacity)
 		reserve(std::max(_size+n, std::min(2 * _size, _maxSize)));
-    if(_size+n > _capacity) return;
+    	if(_size+n > _capacity) 
+    		return;
 	_size += n;
 	for(typename smallVector<T>::size_type j = _size-1; j>=i+n; j--)
 		_buffer[j] = _buffer[j - n];
