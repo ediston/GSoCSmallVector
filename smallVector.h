@@ -121,6 +121,7 @@ smallVector<T>::smallVector(typename smallVector<T>::size_type n, const T& val){
 	}
 }
 
+
 template <typename T>
 smallVector<T>::smallVector(const smallVector& V){
 	_capacity =V._capacity, _size=V._size, _buffer = new T[V._size];
@@ -185,12 +186,10 @@ void smallVector<T>::resize(typename smallVector<T>::size_type n){
 	first = _buffer[0];
 	last = _buffer[_size-1]+1;
 }
-
 template <typename T>
 typename smallVector<T>::size_type smallVector<T>::capacity() const noexcept{
 	return _capacity;
 }
-
 template <typename T>
 bool smallVector<T>::empty() const noexcept{
 	return _size == 0;
@@ -216,8 +215,9 @@ T& smallVector<T>::operator[](typename smallVector<T>::size_type i){
 
 template <typename T>
 const T& smallVector<T>:: operator[](typename smallVector<T>::size_type i) const{
-	if(i<_size)
+	if(i<_size){
 		return _buffer[i];
+	}
 	return 0;
 }
 
@@ -287,9 +287,9 @@ void smallVector<T>::push_back(const T& e) {
 
 template <typename T>
 void smallVector<T>::pop_back(){
-	if(_size == 0 ) 
-		return;
-	resize(_size-1);
+	if(_size > 0 ){
+		resize(_size-1);
+	}
 }
 
 template <typename T>
@@ -300,13 +300,15 @@ void smallVector<T>::reserve(typename smallVector<T>::size_type n){
 	T* newBuffer;
 	try{
 		newBuffer = new T[n];
-		for(typename smallVector<T>::size_type i = 0; i < _size; i++)
+		for(typename smallVector<T>::size_type i = 0; i < _size; i++){
 		    newBuffer[i] = _buffer[i];
+		}
 		delete[] _buffer;
 		_buffer = newBuffer;
 		first = &_buffer[0];
-		if(_size>0)
+		if(_size>0){
 		    last = &_buffer[_size-1] + 1;
+		}
 		else last = first;
 		_capacity = n;
 	}catch (std::exception& e){
