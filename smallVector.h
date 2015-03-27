@@ -121,7 +121,6 @@ smallVector<T>::smallVector(typename smallVector<T>::size_type n, const T& val){
 	}
 }
 
-
 template <typename T>
 smallVector<T>::smallVector(const smallVector& V){
 	_capacity =V._capacity, _size=V._size, _buffer = new T[V._size];
@@ -186,10 +185,12 @@ void smallVector<T>::resize(typename smallVector<T>::size_type n){
 	first = _buffer[0];
 	last = _buffer[_size-1]+1;
 }
+
 template <typename T>
 typename smallVector<T>::size_type smallVector<T>::capacity() const noexcept{
 	return _capacity;
 }
+
 template <typename T>
 bool smallVector<T>::empty() const noexcept{
 	return _size == 0;
