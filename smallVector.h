@@ -12,8 +12,9 @@ template <typename T>
 class smallVector {
   public:
 	// typedefs
-	typedef T *			  		 iterator;
-    	typedef unsigned int          size_type;
+	typedef T *		iterator;
+    	typedef unsigned int    size_type;
+    	
 	// public member functions
 	// Construct/Copy/Destruct
 	smallVector();
@@ -22,6 +23,7 @@ class smallVector {
 	smallVector(size_type n, const T& val);
 	smallVector(iterator _first, iterator _last);
 	~smallVector();
+	
 	smallVector<T>& operator=(const smallVector& V);
 
 	// Capacity
@@ -66,7 +68,7 @@ class smallVector {
 	void swap (smallVector& x);
 
 	// Private members
-T* 				_buffer;
+	T* 			_buffer;
 	size_type		_maxSize;
 	size_type		_capacity;
 	size_type		_size;
